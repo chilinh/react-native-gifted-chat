@@ -13,8 +13,8 @@ import {
 
 declare module "react-native-gifted-chat" {
   interface LeftRightStyle<T> {
-    left: T;
-    right: T;
+    left?: T;
+    right?: T;
   }
 
   export interface User {
@@ -23,25 +23,16 @@ declare module "react-native-gifted-chat" {
     avatar?: string;
   }
 
-  interface ChatMessage {
+  type IMessage = {
     _id: any;
     text: string;
     createdAt: Date;
-    user: {
-      _id: any;
-      name: string;
-      avatar: string;
-    };
-  }
-
-  interface SystemMessage {
-    _id: any;
-    text: string;
-    createdAt: Date;
-    system: true;
-  }
-
-  type IMessage = ChatMessage | SystemMessage;
+    user?: User;
+    sent?: boolean;
+    received?: boolean;
+    system?: boolean;
+    image?: any;
+  };
 
   interface ActionsProps {
     // todo: onSend is not used
@@ -82,7 +73,7 @@ declare module "react-native-gifted-chat" {
   interface BubbleProps {
     user: User;
     touchableProps?: object;
-    onLongPress?(): void;
+    onLongPress?(context, message: IMessage): void;
     renderMessageImage?(messageImageProps: MessageImageProps): JSX.Element;
     renderMessageText?(messageTextProps: MessageTextProps): JSX.Element;
     renderCustomView?(bubbleProps: BubbleProps): JSX.Element;
@@ -97,7 +88,7 @@ declare module "react-native-gifted-chat" {
     bottomContainerStyle: LeftRightStyle<ViewStyle>;
     tickStyle: TextStyle;
     containerToNextStyle: LeftRightStyle<ViewStyle>;
-    containertoPreviousStyle: LeftRightStyle<ViewStyle>;
+    containerToPreviousStyle: LeftRightStyle<ViewStyle>;
     // TODO: remove in next major release
     isSameDay?(currentMessage: IMessage, inextMessage: IMessage): boolean;
     isSameUser?(currentMessage: IMessage, nextMessage: IMessage): boolean;
@@ -242,16 +233,8 @@ declare module "react-native-gifted-chat" {
   }
 
   export class GiftedChat extends React.Component<GiftedChatProps> {
-    static append(
-      currentMessages: any[],
-      messages: any[],
-      inverted?: boolean
-    ): any[];
-    static prepend(
-      currentMessages: any[],
-      messages: any[],
-      inverted?: boolean
-    ): any[];
+    static append(currentMessages: any[], messages: any[], inverted?: boolean): any[];
+    static prepend(currentMessages: any[], messages: any[], inverted?: boolean): any[];
   }
 
   interface InputToolbarProps {
@@ -366,4 +349,9 @@ declare module "react-native-gifted-chat" {
   }
 
   class Time extends React.Component<TimeProps> {}
+
+  namespace utils {
+    function isSameDay(currentMessage: IMessage, message: IMessage): boolean;
+    function isSameUser(currentMessage: IMessage, message: IMessage): boolean;
+  }
 }
