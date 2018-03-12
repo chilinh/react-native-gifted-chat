@@ -22,10 +22,10 @@ export interface User {
 export type IMessage = {
   _id: any;
   text: string;
-  image: string;
   createdAt: Date;
+  image?: string;
   user?: User;
-  system: boolean;
+  system?: boolean;
 };
 
 type LeftRight = "left" | "right";
