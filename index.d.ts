@@ -42,7 +42,7 @@ declare module "react-native-gifted-chat" {
     icon?(): void;
     wrapperStyle?: ViewStyle;
     containerStyle?: ViewStyle;
-    iconTextStyle?: ViewStyle;
+    iconTextStyle?: TextStyle;
   }
 
   export class Actions extends React.Component<ActionsProps> {}
@@ -71,7 +71,7 @@ declare module "react-native-gifted-chat" {
   class Avatar extends React.Component<AvatarProps> {}
 
   interface BubbleProps {
-    user: User;
+    user?: User;
     touchableProps?: object;
     onLongPress?(context, message: IMessage): void;
     renderMessageImage?(messageImageProps: MessageImageProps): JSX.Element;
@@ -84,13 +84,13 @@ declare module "react-native-gifted-chat" {
     nextMessage?: IMessage;
     previousMessage?: IMessage;
     containerStyle?: LeftRightStyle<ViewStyle>;
-    wrapperStyle: LeftRightStyle<ViewStyle>;
-    bottomContainerStyle: LeftRightStyle<ViewStyle>;
-    tickStyle: TextStyle;
-    containerToNextStyle: LeftRightStyle<ViewStyle>;
-    containerToPreviousStyle: LeftRightStyle<ViewStyle>;
+    wrapperStyle?: LeftRightStyle<ViewStyle>;
+    bottomContainerStyle?: LeftRightStyle<ViewStyle>;
+    tickStyle?: TextStyle;
+    containerToNextStyle?: LeftRightStyle<ViewStyle>;
+    containerToPreviousStyle?: LeftRightStyle<ViewStyle>;
     // TODO: remove in next major release
-    isSameDay?(currentMessage: IMessage, inextMessage: IMessage): boolean;
+    isSameDay?(currentMessage: IMessage, nextMessage: IMessage): boolean;
     isSameUser?(currentMessage: IMessage, nextMessage: IMessage): boolean;
   }
 
@@ -100,7 +100,7 @@ declare module "react-native-gifted-chat" {
     composerHeight?: number;
     text?: string;
     placeholder?: string;
-    placeholderTextCoolor?: string;
+    placeholderTextColor?: string;
     textInputProps?: Partial<TextInputProperties>;
     onTextChanged?(text: string): void;
     onInputSizeChanged?(contentSize: number): void;
