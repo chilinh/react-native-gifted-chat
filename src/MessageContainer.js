@@ -10,7 +10,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import { FlatList, View, StyleSheet, Platform } from 'react-native';
+import { FlatList, View, StyleSheet } from 'react-native';
 
 import LoadEarlier from './LoadEarlier';
 import Message from './Message';
@@ -99,9 +99,7 @@ export default class MessageContainer extends React.PureComponent {
           keyExtractor={(item) => item._id}
           enableEmptySections
           automaticallyAdjustContentInsets={false}
-          removeClippedSubviews={Platform.OS === 'android'}
           inverted={this.props.inverted}
-          {...this.props.listViewProps}
           data={this.props.messages}
           style={styles.listStyle}
           contentContainerStyle={styles.contentContainerStyle}
@@ -110,6 +108,7 @@ export default class MessageContainer extends React.PureComponent {
           renderFooter={this.renderLoadEarlier}
           {...this.props.invertibleScrollViewProps}
           ListFooterComponent={this.renderHeaderWrapper}
+          {...this.props.listViewProps}
         />
       </View>
     );
@@ -137,7 +136,7 @@ MessageContainer.defaultProps = {
   user: {},
   renderFooter: null,
   renderMessage: null,
-  onLoadEarlier: () => {},
+  onLoadEarlier: () => { },
   inverted: true,
   loadEarlier: false,
   listViewProps: {},
